@@ -1,0 +1,9 @@
+# Project data exports (keep these with the project, not in the repo)
+*-register.json
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
