@@ -38,15 +38,6 @@ template is updated later. Store the JSON alongside the project documents; the
 HTML page is the blank template and the JSON is the project data.
 
 
-Publishing with GitHub Pages
-----------------------------
-
-1. Create a new empty repository on GitHub, for example technical-file-register.
-2. Upload index.html and README.md to the repository root, or push with git.
-3. In the repository, open Settings, then Pages.
-4. Set Source to Deploy from a branch, branch main, folder root, and save.
-5. The register will be live at
-   https://YOUR-USERNAME.github.io/technical-file-register/
 
 
 Notes
