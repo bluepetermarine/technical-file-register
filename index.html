@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Drawings &amp; Calculations Register - Blue Peter Marine</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+        line-height: 1.4;
+        color: #1f2937;
+    }
+    .bpm-header {
+        background: linear-gradient(135deg, #1e40af, #3b82f6);
+        color: white;
+        padding: 22px;
+        border-radius: 8px;
+        margin-bottom: 14px;
+        text-align: center;
+    }
+    .bpm-header h1 { margin: 0 0 6px; font-size: 24px; }
+    .bpm-header h2 { margin: 0; font-weight: normal; font-size: 15px; }
+    .bpm-header .site { margin-top: 8px; font-size: 13px; opacity: 0.9; }
+    .info-card {
+        background: white;
+        padding: 18px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .info-card h3 { margin-top: 0; color: #1e40af; }
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+    }
+    .info-grid label { font-weight: bold; color: #374151; display: block; margin-bottom: 4px; font-size: 13px; }
+    .info-grid input {
+        padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; width: 100%; box-sizing: border-box;
+    }
+    .section-title {
+        background: linear-gradient(135deg, #1e40af, #3b82f6);
+        color: white; padding: 12px 16px; border-radius: 8px 8px 0 0;
+        font-size: 17px; font-weight: bold; margin-top: 26px;
+    }
+    table {
+        width: 100%; border-collapse: collapse; background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 6px;
+    }
+    th {
+        background: linear-gradient(135deg, #374151, #4b5563);
+        color: white; padding: 11px 10px; text-align: left; font-size: 13px;
+    }
+    td { padding: 9px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; font-size: 13px; }
+    tr:hover td { background-color: #f9fafb; }
+    .group-row td {
+        background: linear-gradient(135deg, #059669, #10b981);
+        color: white; font-weight: bold; text-align: left; font-size: 13px;
+    }
+    .ref { font-weight: bold; color: #1e40af; white-space: nowrap; }
+    .er { white-space: nowrap; }
+    .std { color: #374151; }
+    .track input {
+        width: 100%; box-sizing: border-box; padding: 5px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px;
+    }
+    .notes {
+        background: white; padding: 18px 20px; border-radius: 8px;
+        margin-top: 26px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .notes h3 { margin-top: 0; color: #1e40af; }
+    .notes ol { margin: 0; padding-left: 20px; }
+    .notes li { margin-bottom: 8px; }
+    .footer {
+        margin-top: 24px; padding: 16px; background: #1e293b; color: #cbd5e1;
+        border-radius: 8px; font-size: 12px; text-align: center; line-height: 1.6;
+    }
+    .footer strong { color: white; }
+    .print-btn {
+        background: #1e40af; color: white; border: none; padding: 10px 20px;
+        border-radius: 6px; font-size: 14px; cursor: pointer; margin-bottom: 10px;
+    }
+    .print-btn:hover { background: #1d3a99; }
+    @media print {
+        body { background: white; margin: 8px; }
+        .print-btn { display: none; }
+        tr:hover td { background-color: transparent; }
+        .section-title, .bpm-header, .group-row td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    .toolbar {
+        display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+        margin-bottom: 18px;
+    }
+    .btn {
+        background: #e5e7eb; color: #1f2937; border: 1px solid #cbd5e1;
+        padding: 10px 16px; border-radius: 6px; font-size: 14px; cursor: pointer;
+    }
+    .btn:hover { background: #d1d5db; }
+    .btn-primary { background: #1e40af; color: white; border-color: #1e40af; }
+    .btn-primary:hover { background: #1d3a99; }
+    .btn-clear { background: #fff; color: #b91c1c; border-color: #fca5a5; }
+    .btn-clear:hover { background: #fef2f2; }
+    .status-msg { font-size: 13px; color: #059669; font-weight: bold; }
+    @media print { .toolbar { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="bpm-header">
+    <h1>Blue Peter Marine</h1>
+    <h2>Technical Drawings &amp; Calculations Register</h2>
+    <div class="site">Marine Survey &amp; CE / RCD Compliance &nbsp;|&nbsp; www.ceinspector.com</div>
+</div>
+
+<div class="info-card">
+    <h3>Project Information</h3>
+    <div class="info-grid">
+        <div><label>Manufacturer / Client</label><input type="text" data-key="manufacturer" placeholder="Manufacturer or client"></div>
+        <div><label>Model Name</label><input type="text" data-key="model" placeholder="Model designation"></div>
+        <div><label>Project Number</label><input type="text" data-key="projectNumber" placeholder="Project number"></div>
+        <div><label>Project Ref.</label><input type="text" data-key="projectRef" placeholder="Blue Peter Marine ref"></div>
+        <div><label>Module</label><input type="text" data-key="module" placeholder="B or G"></div>
+        <div><label>Design Category</label><input type="text" data-key="designCategory" placeholder="A / B / C / D"></div>
+        <div><label>Length of Hull (LH)</label><input type="text" data-key="lengthHull" placeholder="metres"></div>
+        <div><label>Prepared By</label><input type="text" data-key="preparedBy" placeholder="Blue Peter Marine"></div>
+        <div><label>Date</label><input type="text" data-key="date" placeholder="yyyy-mm-dd"></div>
+    </div>
+</div>
+
+<div class="toolbar">
+    <button class="btn btn-primary" onclick="exportData()">Export data (JSON)</button>
+    <button class="btn" onclick="document.getElementById('importFile').click()">Import data (JSON)</button>
+    <input type="file" id="importFile" accept="application/json,.json" style="display:none" onchange="importData(event)">
+    <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+    <button class="btn btn-clear" onclick="clearData()">Clear all fields</button>
+    <span id="statusMsg" class="status-msg"></span>
+</div>
+
+<!-- ============ TECHNICAL DRAWINGS ============ -->
+<div class="section-title">Part 1 &mdash; Technical Drawings, Schemes &amp; Diagrams</div>
+<table>
+    <thead>
+        <tr>
+            <th style="width:6%">Ref</th>
+            <th style="width:38%">Drawing / Scheme Required</th>
+            <th style="width:9%">ER</th>
+            <th style="width:20%">Applicable Standard</th>
+            <th style="width:27%">Drawing No. &amp; Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="group-row"><td colspan="5">General Arrangement</td></tr>
+        <tr>
+            <td class="ref">D-01</td>
+            <td>Conceptual design and general arrangement &mdash; general overview: top view, longitudinal section, cross sections</td>
+            <td class="er">various</td>
+            <td class="std">&mdash;</td>
+            <td class="track"><input type="text" data-key="D-01"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-02</td>
+            <td>Detail drawings &mdash; e.g. cockpit, interior, engine room</td>
+            <td class="er">various</td>
+            <td class="std">&mdash;</td>
+            <td class="track"><input type="text" data-key="D-02"></td>
+        </tr>
+
+        <tr class="group-row"><td colspan="5">Installation Schemes (numbered, with revision dates)</td></tr>
+        <tr><td class="ref">D-03</td><td>Bilge pumping system</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-03"></td></tr>
+        <tr><td class="ref">D-04</td><td>Piping system with all thru-hull points and seacock information</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-04"></td></tr>
+        <tr><td class="ref">D-05</td><td>Black water system</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-05"></td></tr>
+        <tr><td class="ref">D-06</td><td>Fresh and seawater system</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-06"></td></tr>
+        <tr><td class="ref">D-07</td><td>Grey water system</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-07"></td></tr>
+        <tr><td class="ref">D-08</td><td>Heating system</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-08"></td></tr>
+        <tr><td class="ref">D-09</td><td>Exhaust system</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-09"></td></tr>
+        <tr><td class="ref">D-10</td><td>Air-conditioning system</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-10"></td></tr>
+        <tr><td class="ref">D-11</td><td>LPG system (layout scheme &mdash; detailed gas installation drawing under D-22)</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-11"></td></tr>
+        <tr><td class="ref">D-12</td><td>Hydraulic system</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-12"></td></tr>
+        <tr><td class="ref">D-13</td><td>Other installation schemes as applicable / appropriate</td><td class="er">various</td><td class="std">&mdash;</td><td class="track"><input type="text" data-key="D-13"></td></tr>
+
+        <tr class="group-row"><td colspan="5">Systems &amp; Compliance Drawings</td></tr>
+        <tr>
+            <td class="ref">D-14</td>
+            <td>Recess / cockpit &mdash; position and characteristic of any recess</td>
+            <td class="er">3.5</td>
+            <td class="std">ISO 11812</td>
+            <td class="track"><input type="text" data-key="D-14"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-15</td>
+            <td>Openings in hull, deck and superstructure &mdash; type, location, position and characteristic of windows, portlights, hatches, doors, seacocks</td>
+            <td class="er">3.4</td>
+            <td class="std">ISO 12216 / ISO 9093</td>
+            <td class="track"><input type="text" data-key="D-15"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-16</td>
+            <td>Means of reboarding &mdash; location and characteristic</td>
+            <td class="er">2.3</td>
+            <td class="std">ISO 15085</td>
+            <td class="track"><input type="text" data-key="D-16"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-17</td>
+            <td>Visibility from main steering position &mdash; drawings; where fitted, camera / mirror arrangement for view astern</td>
+            <td class="er">2.4</td>
+            <td class="std">ISO 11592</td>
+            <td class="track"><input type="text" data-key="D-17"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-18</td>
+            <td>Escape arrangement for habitable multihull susceptible of inversion &mdash; drawings (if applicable)</td>
+            <td class="er">3.8</td>
+            <td class="std">ISO 12217-1/-2, ISO 9094</td>
+            <td class="track"><input type="text" data-key="D-18"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-19</td>
+            <td>Fire-fighting &mdash; escape routes with distances and dimensions; fire-fighting equipment layout (portable and fixed)</td>
+            <td class="er">3.8, 5.6</td>
+            <td class="std">ISO 9094</td>
+            <td class="track"><input type="text" data-key="D-19"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-20</td>
+            <td>Anchoring, mooring and towing &mdash; strong points (drawings, sketches)</td>
+            <td class="er">3.9</td>
+            <td class="std">ISO 15083</td>
+            <td class="track"><input type="text" data-key="D-20"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-21</td>
+            <td>Ventilation &mdash; engine room ventilation system (drawing, sketch)</td>
+            <td class="er">5.1.2</td>
+            <td class="std">ISO 11105</td>
+            <td class="track"><input type="text" data-key="D-21"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-22</td>
+            <td>Fuel system &mdash; drawings, sketches</td>
+            <td class="er">5.2</td>
+            <td class="std">ISO 10088 / ISO 21487</td>
+            <td class="track"><input type="text" data-key="D-22"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-23</td>
+            <td>Electrical system &mdash; wire diagram</td>
+            <td class="er">5.3</td>
+            <td class="std">ISO 10133 / ISO 13297</td>
+            <td class="track"><input type="text" data-key="D-23"></td>
+        </tr>
+        <tr>
+            <td class="ref">D-24</td>
+            <td>Gas system &mdash; installation drawings, sketches, work instructions</td>
+            <td class="er">5.5</td>
+            <td class="std">ISO 10239</td>
+            <td class="track"><input type="text" data-key="D-24"></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ============ CALCULATIONS ============ -->
+<div class="section-title">Part 2 &mdash; Calculations</div>
+<table>
+    <thead>
+        <tr>
+            <th style="width:6%">Ref</th>
+            <th style="width:38%">Calculation Required</th>
+            <th style="width:9%">ER</th>
+            <th style="width:20%">Applicable Standard</th>
+            <th style="width:27%">Document Ref &amp; Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="ref">C-01</td>
+            <td>Stability calculation according to the applicable ISO 12217 standard</td>
+            <td class="er">3.2, 3.3, 3.5</td>
+            <td class="std">ISO 12217</td>
+            <td class="track"><input type="text" data-key="C-01"></td>
+        </tr>
+        <tr>
+            <td class="ref">C-02</td>
+            <td>Cockpit / recess drainage calculation</td>
+            <td class="er">3.5</td>
+            <td class="std">ISO 11812</td>
+            <td class="track"><input type="text" data-key="C-02"></td>
+        </tr>
+        <tr>
+            <td class="ref">C-03</td>
+            <td>Calculation for windows, portlights, hatches and doors</td>
+            <td class="er">3.4</td>
+            <td class="std">ISO 12216</td>
+            <td class="track"><input type="text" data-key="C-03"></td>
+        </tr>
+        <tr>
+            <td class="ref">C-04</td>
+            <td>Structural calculations according to applicable ISO 12215 parts (or other accepted rules)</td>
+            <td class="er">3.1</td>
+            <td class="std">ISO 12215</td>
+            <td class="track"><input type="text" data-key="C-04"></td>
+        </tr>
+        <tr>
+            <td class="ref">C-05</td>
+            <td>Escape calculation for habitable multihull susceptible of inversion (if applicable)</td>
+            <td class="er">3.8</td>
+            <td class="std">ISO 12217-1/-2, ISO 9094</td>
+            <td class="track"><input type="text" data-key="C-05"></td>
+        </tr>
+        <tr>
+            <td class="ref">C-06</td>
+            <td>Net volume calculation of engine room compartment &mdash; fire-fighting</td>
+            <td class="er">3.8, 5.6</td>
+            <td class="std">ISO 9094</td>
+            <td class="track"><input type="text" data-key="C-06"></td>
+        </tr>
+        <tr>
+            <td class="ref">C-07</td>
+            <td>Net volume calculation of engine room compartment &mdash; ventilation</td>
+            <td class="er">5.1.2</td>
+            <td class="std">ISO 11105</td>
+            <td class="track"><input type="text" data-key="C-07"></td>
+        </tr>
+        <tr>
+            <td class="ref">C-08</td>
+            <td>Strength calculation for anchoring / mooring / towing strong points (calculation and/or test report)</td>
+            <td class="er">3.9</td>
+            <td class="std">ISO 15083</td>
+            <td class="track"><input type="text" data-key="C-08"></td>
+        </tr>
+        <tr>
+            <td class="ref">C-09</td>
+            <td>Voltage drop calculation (electrical system)</td>
+            <td class="er">5.3</td>
+            <td class="std">ISO 10133 / ISO 13297</td>
+            <td class="track"><input type="text" data-key="C-09"></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ============ NOTES ============ -->
+<div class="notes">
+    <h3>Notes on Applicability</h3>
+    <ol>
+        <li>This register lists only the drawing-type and calculation-type deliverables required for the Module B / G technical file under the Recreational Craft Directive 2013/53/EU. It is not the full technical file; test reports, descriptions, part lists, supplier certificates and the Owner's Manual are held separately.</li>
+        <li>Items apply as far as applicable and appropriate to the actual craft. Final applicability is confirmed once the systems, design category and hull length are established. Rows that do not apply to the craft should be marked N/A rather than deleted.</li>
+        <li>All installation schemes and drawings must be numbered and carry revision dates where changes are made.</li>
+        <li>The engine room net volume figure (C-06 and C-07) is a single physical value serving two clauses &mdash; fixed fire-fighting provision and ventilation. Calculate once and reference it in both places.</li>
+        <li>Structure (C-04): where rules other than ISO 12215 have been applied to achieve structural integrity, agree the approach with the Notified Body up-front.</li>
+        <li>Multihull inversion items (D-18, C-05) apply only to habitable multihull craft susceptible of inversion. Confirm applicability for the specific model before requesting these from the yard.</li>
+        <li>The date and signature on the certification application set the reference date for the standards applicable to the assessment.</li>
+    </ol>
+</div>
+
+<div class="footer">
+    <strong>Blue Peter Marine</strong> &mdash; Marine Survey &amp; CE / RCD Compliance<br>
+    Cape Town, South Africa &nbsp;|&nbsp; www.ceinspector.com<br>
+    Reference: Module B / G technical documentation requirements, Recreational Craft Directive 2013/53/EU.
+</div>
+
+<script>
+const BPM_TOOL = "BPM Technical File Register";
+const BPM_VERSION = "1.0";
+
+function collect() {
+    const data = {};
+    document.querySelectorAll('input[data-key]').forEach(el => {
+        data[el.getAttribute('data-key')] = el.value;
+    });
+    return data;
+}
+
+function apply(data) {
+    if (!data) return;
+    document.querySelectorAll('input[data-key]').forEach(el => {
+        const k = el.getAttribute('data-key');
+        if (Object.prototype.hasOwnProperty.call(data, k)) el.value = data[k];
+    });
+}
+
+function flash(msg, ok) {
+    const s = document.getElementById('statusMsg');
+    s.textContent = msg;
+    s.style.color = ok === false ? '#b91c1c' : '#059669';
+    setTimeout(() => { s.textContent = ''; }, 4000);
+}
+
+function slug(str) {
+    return (str || '').toString().trim().toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'project';
+}
+
+function exportData() {
+    const data = collect();
+    const payload = {
+        _tool: BPM_TOOL,
+        _version: BPM_VERSION,
+        _exported: new Date().toISOString(),
+        data: data
+    };
+    const name = slug(data.manufacturer) + '-' + slug(data.model) + '-register.json';
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    flash('Exported ' + name);
+}
+
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const parsed = JSON.parse(e.target.result);
+            const data = parsed && parsed.data ? parsed.data : parsed;
+            apply(data);
+            flash('Imported ' + file.name);
+        } catch (err) {
+            flash('Import failed: not a valid JSON file', false);
+        }
+        event.target.value = '';
+    };
+    reader.readAsText(file);
+}
+
+function clearData() {
+    if (!confirm('Clear all fields? This cannot be undone.')) return;
+    document.querySelectorAll('input[data-key]').forEach(el => { el.value = ''; });
+    flash('All fields cleared');
+}
+</script>
+</body>
+</html>
